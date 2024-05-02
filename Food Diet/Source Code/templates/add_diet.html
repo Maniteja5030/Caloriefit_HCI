@@ -1,0 +1,59 @@
+{% include "nutrition_head.html" %}
+<br><br>
+<div class="container mt-5">
+        <div class="row">
+            <div class="col-md-2"></div>
+             <div class="col-md-8">
+                 <div class="card p-4 mt-5">
+                     <form action="/add_diet_action" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                             <div class="col-md-6">
+                                 <div class="mt-2">
+                                    <label for="diet_title">Diet Title:</label>
+                                    <input type="text" name="diet_title" id="diet_title" placeholder="Add diet Title" class="form-control">
+                                 </div>
+                                  <div class="mt-2">
+                                    <label for="age_from">Age From:</label>
+                                    <input type="number" name="age_from" id="age_from" class="form-control">
+                                 </div>
+                                  <div class="mt-2">
+                                    <label for="age_to">Age To:</label>
+                                    <input type="number" name="age_to" id="age_to" class="form-control" >
+                                  </div>
+                                 <div class="mt-2">
+                                     <label for="instructions">Instructions:</label>
+                                     <input type="text" name="instructions" id="instructions" placeholder="Enter Instructions" class="form-control">
+                                 </div>
+                                 <div class="mt-2">
+                                    <label for="image">Image:</label>
+                                    <input type="file" name="image" id="image" class="form-control" >
+                                </div>
+
+                             </div>
+                            <div class="col-md-6">
+                                <div class=" mt-2">
+                                    <label for="about_diet">About Diet:</label>
+                                    <input type="text" name="about_diet" id="about_diet" placeholder=" Write About Diet" class="form-control">
+                                </div>
+                                 <div class="mt-2">
+                                    <label for="diet_for">Diet For:</label>
+                                    <input type="text" name="diet_for" id="diet_for" placeholder=" Enter Diet For" class="form-control">
+                                </div>
+                                <div class="mt-2">
+                                    <label for="calories_to_be_burn">Calories Burn:</label>
+                                    <input type="text" name="calories_to_be_burn" id="calories_to_be_burn" placeholder=" Enter Calories To Be Burn" class="form-control">
+                                </div>
+                                <div class="mt-2">
+                                    <label for="calories_to_be_consume">Calories Consume:</label>
+                                    <input type="text" name="calories_to_be_consume" id="calories_to_be_consume" placeholder=" Enter Calories To Be Consume" class="form-control">
+                                </div>
+                                <div class="add_diet_add" ><button type="submit" class="add_diet_sub" >ADD</button></div>
+
+                            </div>
+                        </div>
+                     </form>
+                 </div>
+             </div>
+             <div class="col-md-2"></div>
+        </div>
+</div>

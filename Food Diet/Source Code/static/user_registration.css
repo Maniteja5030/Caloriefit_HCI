@@ -1,0 +1,15 @@
+
+
+.card{
+margin-top:80px;
+
+}
+.radio{
+    display:flex;
+    justify-content:space-between;
+
+}
+
+.submit-btn{
+margin-top:10
+}

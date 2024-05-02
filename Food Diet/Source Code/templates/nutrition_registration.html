@@ -1,0 +1,46 @@
+{% include "head.html" %}
+
+<head>
+        <link rel="stylesheet" href="static\user_registration.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <div class="card" >
+            <div class="card-body">
+                <h5 class="card-title text-center text-primary">Nutritioner Registration</h5>
+                <form action="/nutrition_registration_action" method="post" enctype="multipart/form-data">
+                    <div class="mb-2">
+                        <label for="name" class="form-label">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                    </div>
+                    <div class="mb-2">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email">
+                    </div>
+                    <div class="mb-2">
+                        <label for="phone" class="form-label">Phone:</label>
+                        <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter Phone">
+                    </div>
+                       <div class="mb-2">
+                        <label for="password" class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
+                    </div>
+                     <div class="mb-2">
+                        <label for="about" class="form-label">About:</label>
+                        <input type="text" class="form-control" id="about" name="about" placeholder="Write About">
+                    </div>
+                       <div class="mb-3">
+                           <label for="profile_picture" >Picture:</label><br>
+                           <input type="file" name="profile_picture" id="profile_picture"  required>
+                       </div>
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+

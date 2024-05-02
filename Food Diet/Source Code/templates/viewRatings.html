@@ -1,0 +1,19 @@
+{% if session['role'] == 'nutrition' %}
+    {% include "nutrition_head.html" %}
+{% elif session['role'] == 'user' %}
+    {% include "user_head.html" %}
+{% endif %}
+<div class="container mt-3">
+    <table class="table table-bordered" style="margin-top:100px">
+       <tr>
+           <th>Rating</th>
+           <th>Review</th>
+           <th>Date</th>
+       </tr>
+        <tr>
+            <td>{{review[2]}}</td>
+            <td>{{review[1]}}</td>
+            <td>{{review[3]}}</td>
+        </tr>
+    </table>
+</div>

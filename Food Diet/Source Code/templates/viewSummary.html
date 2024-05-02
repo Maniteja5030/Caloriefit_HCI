@@ -1,0 +1,80 @@
+{% if session['role'] == 'nutrition' %}
+    {% include "nutrition_head.html" %}
+{% elif session['role'] == 'user' %}
+    {% include "user_head.html" %}
+{% endif %}
+<div class="container-fluid mt-5">
+  <div class="text-center" style="margin-top:100px">
+      <form action="viewSummary">
+          <input type="hidden" name="diet_id" value="{{diet_id}}">
+          <input type="date" name="date"  onchange="this.form.submit()" class="form-control mt-1 w-50">
+      </form>
+  </div>
+    <div class="row">
+        <div class="col-md-6">
+            {% set totalCalories = namespace(value=0) %}
+            <div class="text-center h6">Food Summary</div>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Food Name</th>
+                    <th>Quantity</th>
+                    <th>Total Calories</th>
+                    <th>Total Consumed</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                  {% for user_food in user_foods%}
+                  {% set totalCalories.value = totalCalories.value +int(user_food[5]) %}
+                   {% set food_in_diet = get_food_in_diet_by_id(user_food[4])%}
+                  {% set food_timing = get_food_timing_in_diet_by_id(food_in_diet[7])%}
+                  {% set diet = get_diet_by_id(food_timing[4])%}
+                    <tr>
+                        <td>{{food_in_diet[1]}}</td>
+                        <td>{{user_food[1]}}</td>
+                        <td>{{user_food[5]}}</td>
+                        <td>{{diet[10]}}</td>
+
+                    </tr>
+                   {% endfor%}
+                </tbody>
+                      <td colspan="5">Total Calories : <b>{{totalCalories.value}}</b></td>
+        </table>
+        </div>
+        <div class="col-md-6">
+            <div class="text-center h6">Exercise Summary</div>
+            {% set totalCalories2 = namespace(value=0) %}
+                    <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Exercise Name</th>
+                    <th>Quantity</th>
+                    <th>Number Of Sets</th>
+                    <th>Total Calories Burned </th>
+
+                </tr>
+                </thead>
+                <tbody>
+                  {% for user_exercise in user_exercises%}
+                {% set user_exercise_in = get_exercise_in_diet_by_id(user_exercise[4])%}
+                    {% set exercise_timing = get_exercise_user_exercise_by_id(user_exercise_in[4])%}
+                  {% set diet = get_diet_by_id(exercise_timing[4])%}
+                  {% set totalCalories2.value = totalCalories2.value +int(user_exercise[5]) %}
+                    <tr>
+                        <td>{{user_exercise_in[1]}}</td>
+                        <td>{{user_exercise[1]}}</td>
+                        <td>{{user_exercise[5]}}</td>
+                        <td>{{diet[10]}}</td>
+                    </tr>
+                   {% endfor%}
+                 <td colspan="5">
+                      Total Calories : <b>{{totalCalories2.value}}</b>
+                  </td>
+
+                </tbody>
+        </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+{% include "head.html" %}
+
+<head>
+        <link rel="stylesheet" href="static\user_registration.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <div class="card" >
+            <div class="card-body">
+                <h5 class="card-title text-center text-primary">User Registration</h5>
+                <form action="/user_registration_action" method="post">
+                    <div class="mb-1">
+                        <label for="name" class="form-label">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                    </div>
+                    <div class="mb-1">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email">
+                    </div>
+                    <div class="mb-1">
+                        <label for="phone" class="form-label">Phone:</label>
+                        <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter Phone">
+                    </div>
+                       <div class="mb-1">
+                        <label for="password" class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
+                    </div>
+                     <div class="mb-1">
+                        <label for="age" class="form-label">Age:</label>
+                        <input type="text" class="form-control" id="age" name="age" placeholder="Enter Age">
+                    </div>
+                       <div class="mb-1">
+                        <label for="address" class="form-label">Address:</label>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Password">
+                    </div>
+                   <div class="radio">
+                       <div class="gender"> Gender:</div>
+                          <input type="radio" id="male" name="gender" value="male">
+                            <label for="male">Male</label><br>
+                          <input type="radio" id="female" name="gender" value="female" >
+                            <label for="female">Female</label><br>
+                          <input type="radio" id="others" name="gender" value="others" >
+                            <label for="others">Others</label>
+                     </div>
+                     <div class="mt-3">
+                        <button type="submit" class="btn btn-primary w-100">Register</button>
+                     </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+

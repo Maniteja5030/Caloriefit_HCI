@@ -1,0 +1,38 @@
+{% include "admin_head.html" %}
+
+<div class="container">
+   <table border="1" class="table table-striped">
+       <tr>
+            <th>NUTRITION_Id</th>
+            <th>NAME</th>
+            <th>EMAIL</th>
+            <th>PHONE</th>
+           <th>PASSWORD</th>
+           <th>ABOUT</th>
+           <th>PICTURE</th>
+           <th>STATUS</th>
+           <th>VERIFY</th>
+
+        </tr>
+          {% for nutrition in nutritions %}
+             <tr>
+                   <td>{{nutrition[0]}}</td>
+                   <td>{{nutrition[1]}}</td>
+                   <td>{{nutrition[2]}}</td>
+                   <td>{{nutrition[3]}}</td>
+                   <td>{{nutrition[4]}}</td>
+                   <td>{{nutrition[5]}}</td>
+                   <td>{{nutrition[6]}}</td>
+                   <td>{{nutrition[7]}}</td>
+                   <td>
+                       {% if nutrition[7] == 'Not Verified'%}
+                       <a href="verify_nutrition?nutrition_id={{nutrition[0]}}">Verify</a>
+                       {% endif %}
+                   </td>
+
+
+             </tr>
+          {% endfor %}
+
+  </table>
+</div>

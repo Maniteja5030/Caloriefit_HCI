@@ -1,0 +1,175 @@
+{% if session['role'] == 'nutrition' %}
+    {% include "nutrition_head.html" %}
+{% elif session['role'] == 'user' %}
+    {% include "user_head.html" %}
+{% endif %}
+<div class="container-fluid">
+    <div class="row mt-5">
+        {% if session['role'] == 'nutrition' %}
+        <div class="col-md-4 mt-5">
+            <div class="card2">
+                <form action="add_exercise_diet1" class="p-1" method="post" enctype="multipart/form-data">
+                    <h3 style="margin-left:90px;">Add Exercise in Diet</h3>
+                    <div>
+                        <select name="exercise_timing_id" style="width:100%" id="exercise_timing_id" class="location" required>
+                            <option value="">Choose Exercise Timing</option>
+                            {% for exercise_timing in exercise_timings %}
+                            <option value="{{exercise_timing[0]}}">{{exercise_timing[2]}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <input type="text" name="exercise_name" id="exercise_name" style="width:100%" placeholder="Enter Exercise Name" required>
+                    </div>
+                    <div>
+                        <input type="number" name="duration" id="duration" style="width:100%" placeholder="Enter Duration" required>
+                    </div>
+                    <div>
+                        <input type="file" name="image" id="image" style="width:100%" placeholder="Upload Images" required>
+                    </div>
+                    <div>
+                        <input type="text" name="calories_burn" style="width:100%" id="calories_burn" placeholder="Enter Calories Burn" required>
+                    </div>
+                    <div>
+                        <input type="submit" value="Add" style="width:100%" class="button" style="width:350px;">
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+        {% for exercise_in_diet in exercise_in_diets: %}
+        {% set exercise_timing = get_exercise_timings_by_exercise_timing_id(exercise_in_diet[4]) %}
+        <div class="col-md-3 mt-5">
+            <div class="card2">
+                <div class="p-2">
+                    <img src="../static/diet_files/{{exercise_in_diet[5]}}" style="height:210px; width:290px; border-radius:15px;">
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div>
+                            <div style="font-weight:bold;">Exercise in Diet Id:</div>
+                            <div>{{exercise_in_diet[0]}}</div>
+                        </div>
+                        <div>
+                            <div style="font-weight:bold;">Duration:</div>
+                            <div>{{exercise_in_diet[2]}} min</div>
+                        </div>
+                        <div>
+                            <div style="font-weight:bold;">Exercise Timing:</div>
+                            <div>{{exercise_timing[2]}} min</div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div>
+                            <div style="font-weight:bold;">Exercise Name:</div>
+                            <div>{{exercise_in_diet[1]}}</div>
+                        </div>
+                        <div>
+                            <div style="font-weight:bold;">Calories have to Burn:</div>
+                            <div>{{exercise_in_diet[3]}}</div>
+                        </div>
+                    </div>
+                     {% if session['role'] == 'user' %}
+                        <form action="update_user_exercise">
+                            <input type="hidden" name="exercise_in_diet_id" value="{{exercise_in_diet[0]}}">
+                            <input type="hidden" name="calories" value="{{exercise_in_diet[3]}}">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div>
+                                        <input type="text" name="number_of_sets" placeholder="Number Of Sets" class="form-control">
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+
+                                        <input type="date" name="date" class="form-control"  required>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mt-3 width:150px;">
+                                        <input type="submit" value="Update" class="btn btn-dark">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        {% endif %}
+                      </div>
+                       </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .card2 {
+    border:1px solid lightgray;
+    padding:20px;
+    display: flex;
+    flex-wrap: wrap;
+    margin:10px;
+    border-radius:10px;
+    background-color: lightgray;
+}
+    #exercise_name{
+      padding: 5px 80px;
+      margin: 5px 15px;
+      border-radius: 10px;
+      border-color: 1px light-black;
+    }
+    #duration{
+      padding: 5px 80px;
+      margin: 5px 15px;
+      border-radius: 10px;
+      border-color: 1px light-black;
+    }
+    #calories_burn{
+      padding: 5px 80px;
+      margin: 5px 15px;
+      border-radius: 10px;
+      border-color: 1px light-black;
+    }
+    #preparation_process{
+      padding: 5px 90px;
+      margin: 5px 15px;
+      border-radius: 10px;
+      border-color: 1px light-black;
+    }
+    #propagation_time{
+      padding: 5px 80px;
+      margin: 5px 15px;
+      border-radius: 10px;
+      border-color: 1px light-black;
+    }
+    #calories{
+      padding: 5px 80px;
+      margin: 5px 15px;
+      border-radius: 10px;
+      border-color: 1px light-black;
+    }
+    #exercise_timing_id{
+      padding: 5px 77px;
+      margin: 5px 15px;
+      border-radius: 10px;
+      border-color: 1px light-black;
+    }
+    #image{
+      padding: 5px 25px;
+      margin: 5px 15px;
+      border-radius: 10px;
+      background-color: white;
+      border-color: 1px light-black;
+    }
+    .button{
+      margin-top: 7px;
+      margin-left:10px;
+      border: 1px solid black;
+      padding: 7px 80px;
+      background-color: black;
+      color: white;
+      font-size: 20px;
+      border-radius: 15px;
+    }
+</style>

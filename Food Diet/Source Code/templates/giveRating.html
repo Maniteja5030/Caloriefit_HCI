@@ -1,0 +1,33 @@
+{% if session['role'] == 'nutrition' %}
+    {% include "nutrition_head.html" %}
+{% elif session['role'] == 'user' %}
+    {% include "user_head.html" %}
+{% endif %}
+
+<div class="container-fluid mt-4" >
+    <div class="row" style="margin-top:100px">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 mt-4" >
+            <div class="card p-4">
+                <form action="giveRatingAction" method="post">
+                    <input type="hidden" name="diet_id" value="{{diet_id}}">
+                    <div class="form-group">
+                        <label>Rating</label>
+                        <select class="form-control p-2 mt-1" name="rating">
+                            <option value="5">5</option>
+                            <option value="4">4</option>
+                            <option value="3">3</option>
+                            <option value="2">2</option>
+                            <option value="1">1</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label>Review</label>
+                       <textarea name="review" class="form-control mt-1 p-2"></textarea>
+                    </div>
+                    <input type="submit" value="Add Review" class="btn btn-primary w-100 mt-3">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

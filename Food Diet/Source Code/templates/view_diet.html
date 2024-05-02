@@ -1,0 +1,168 @@
+
+{% if session['role'] == 'nutrition' %}
+    {% include "nutrition_head.html" %}
+{% elif session['role'] == 'user' %}
+    {% include "user_head.html" %}
+{% endif %}
+
+<div>
+    <form action="/view_diet" style="display:flex;">
+    <div style="margin-top:100px; width: 400px; margin-left: 600px;">
+        <label for="name">Search by Diet</label>
+        <input type="text" name="name" id="name" placeholder="Enter Diet" style="  width:100%;padding: 10px 30px; border-radius:15px;">
+    </div>
+    <div style="margin-top:130px; margin-left: 40px;">
+        <input type="submit" value="search" style="background-color:black;  color: white; padding:5px 25px; border-radius:15px;">
+    </div>
+</form>
+</div>
+{% for diet in diets %}
+{% if session['role'] == 'user' %}
+  {% set isFollowed = getIsFollowed(diet[0])%}
+{% endif%}
+{% set rating = getAvgRating(diet[0])%}
+{% set exercise_timings = get_exercise_timings_by_diet_id(diet[0]) %}
+{% set food_timings = get_food_timings_by_diet_id(diet[0]) %}
+<div style="margin-top:50px;">
+    <div class="card2">
+        <div class="row">
+            <div class="col-md-3">
+                <div>
+                    <img src="../static/diet_files/{{diet[5]}}" style="height:330px; max-width:100%; border-radius:15px; transition: transform .6s;">
+                </div>
+                <div class="mt-4">
+                    <div class="card-label">Diet Title:</div>
+                    <div style="font-size:22px;">{{diet[1]}}</div>
+                </div>
+                <div class="mt-4">
+                    <a href="getReviews?diet_id={{diet[0]}}">{{rating}}</a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div style="display: flex; flex-wrap: wrap;" class="col-md-4 mb-5" >
+                        <div class="card2-item">
+                            <div class="card-label">Age:</div>
+                            <div class="card-text">{{diet[2]}} TO {{diet[3]}}</div>
+                         </div>
+                         <div class="card2-item">
+                            <div class="card-label">Calories Burn:</div>
+                            <div class="card-text">{{diet[9]}}</div>
+                         </div>
+                         <div class="card2-item">
+                            <div class="card-label">Calories Consume:</div>
+                            <div class="card-text">{{diet[10]}}</div>
+                         </div>
+                        {% if session['role'] == 'nutrition' %}
+                        <div>
+                            <div class="" style="margin-top:40px;">
+                                 <a href="/exercise_timings?diet_id={{diet[0]}}" style="text-decoration:none; font-size:15px; border-radius:15px; padding: 7px 15px; background-color:black; color: white;">Exercise Timings</a>
+                             </div>
+                             <div class="" style="margin-top:40px;">
+                                 <a href="/food_timings?diet_id={{diet[0]}}" style="text-decoration:none; font-size:17px; border-radius:15px; padding: 7px 18px; background-color:black; color: white;">Food Timings</a>
+                             </div>
+                        </div>
+                        {% endif %}
+                        <div>
+                            <div class="" style="margin-top:40px; margin-left: 35px;">
+                                 <a href="/exercise_diet?diet_id={{diet[0]}}" style="text-decoration:none; font-size:16px; border-radius:15px; padding: 7px 25px; background-color:black; color: white;">Exercise in diet</a>
+                             </div>
+                             <div class="" style="margin-top:40px; margin-left: 35px;">
+                                 <a href="/food_diet?diet_id={{diet[0]}}" style="text-decoration:none; font-size:17px; border-radius:15px; padding: 7px 33px; background-color:black; color: white;">Food in diet</a>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="mb-2" style="background-color:white; border-radius:15px;">
+                                <div style="margin-left: 10px;">
+                                    <h6>Exercise Timings</h6>
+                                </div>
+                                <div class="container-fluid">
+                                    <table border="1" class="table table-bordered">
+                                        <tr>
+                                            <th style="font-size:12px;">Timing Id</th>
+                                            <th style="font-size:12px;">Exercise Title</th>
+                                            <th style="font-size:12px;">Exercise Timings</th>
+                                            <th style="font-size:12px;">No.Of Calories Should Burn</th>
+                                        </tr>
+                                        {% for exercise_timing in exercise_timings: %}
+                                        <tr>
+                                            <td style="font-size:10px;">{{exercise_timing[0]}}</td>
+                                            <td style="font-size:10px;">{{exercise_timing[1]}}</td>
+                                            <td style="font-size:10px;">{{exercise_timing[2]}}</td>
+                                            <td style="font-size:10px;">{{exercise_timing[3]}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="mt-2" style="background-color:white; border-radius:15px;">
+                                <div style="margin-left: 10px;">
+                                    <h6>Food Timings</h6>
+                                </div>
+                                <div class="container-fluid">
+                                    <table border="1" class="table table-bordered">
+                                        <tr>
+                                            <th style="font-size:12px;">Timing Id</th>
+                                            <th style="font-size:12px;">Food Title</th>
+                                            <th style="font-size:12px;">Food Timings</th>
+                                            <th style="font-size:12px;">No.Of Calories Should Take</th>
+                                        </tr>
+                                        {% for food_timing in food_timings: %}
+                                        <tr>
+                                            <td style="font-size:10px;">{{food_timing[0]}}</td>
+                                            <td style="font-size:10px;">{{food_timing[1]}}</td>
+                                            <td style="font-size:10px;">{{food_timing[2]}}</td>
+                                            <td style="font-size:10px;">{{food_timing[3]}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+
+                            {% if session['role'] == 'user' %}
+                            {% set user_diet = get_user_diet_by_diet_id(diet[0]) %}
+                            {% if isFollowed > 0%}
+                            <div class="text-primary mt-3 h5">Following</div>
+                            {%else%}
+                            <div class="" style="margin-left: 35px;margin-top: 20px;">
+                                <a href="/follow_diet?diet_id={{diet[0]}}" style="text-decoration:none; font-size:17px; border-radius:15px; padding: 7px 33px; background-color:black; color: white;">Follow</a>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="margin-top:10px;">
+                    <div class="card-label">Deit For:</div>
+                    <div class="card-text">{{diet[8]}}</div>
+                </div>
+                <div style="margin-top:10px;">
+                    <div class="card-label">Instructions:</div>
+                    <div class="card-text">{{diet[4]}}</div>
+                </div>
+                <div style="margin-top:10px;">
+                    <div class="card-label">About Diet:</div>
+                    <div class="card-text">{{diet[6]}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor%}
+<style>
+    .card2 {
+    border:1px solid lightgray;
+    padding:10px;
+    display: flex;
+    flex-wrap: wrap;
+    margin:10px;
+    border-radius:10px;
+    background-color: lightgray;
+}
+</style>
+
+
+

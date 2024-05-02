@@ -1,0 +1,204 @@
+{% if session['role'] == 'nutrition' %}
+    {% include "nutrition_head.html" %}
+{% elif session['role'] == 'user' %}
+    {% include "user_head.html" %}
+{% endif %}
+<div class="container-fluid" style="margin-top:100px;">
+    <form action="food_diet" class="mt-5">
+         <div class="text-center">
+            <select name="food_timing_id" onchange="this.form.submit()" id="timing_id" class="location" style="width:150px; border-radius: 10px; padding:5px 10px;">
+                <option value="">Food Timing</option>
+                {% for food_timing in food_timings %}
+                <option value="{{food_timing[0]}}">{{food_timing[2]}}</option>
+                {% endfor %}
+            </select>
+         </div>
+    </form>
+    <div class="row mt-5">
+        {% if session['role'] == 'nutrition' %}
+        <div class="col-md-4 mt-5">
+            <div class="card2">
+                <form action="add_food_diet1" class="p-1" method="post" enctype="multipart/form-data">
+                    <h3 style="margin-left:90px;">Add Food in Diet</h3>
+                    <div>
+                        <select name="food_timing_id" id="food_timing_id" class="location" required>
+                            <option value="">Choose food_timing</option>
+                            {% for food_timing in food_timings %}
+                            <option value="{{food_timing[0]}}">{{food_timing[2]}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <input type="text" name="food_name" id="food_name" placeholder="Enter Food Name" required>
+                    </div>
+                    <div>
+                        <input type="number" name="quantity" id="quantity" placeholder="Enter Quantity" required>
+                    </div>
+                    <div>
+                        <input type="text" name="units" id="units" placeholder="Enter Units" required>
+                    </div>
+                    <div>
+                        <textarea name="preparation_process" id="preparation_process" placeholder="Write Preparation Process" required></textarea>
+                    </div>
+                    <div>
+                        <input type="file" name="image" id="image" placeholder="Upload Images" required>
+                    </div>
+                    <div>
+                        <input type="number" name="propagation_time" id="propagation_time" placeholder="Enter Propagation Time" required>
+                    </div>
+                    <div>
+                        <input type="number" name="calories" id="calories" placeholder="Enter Calories" required>
+                    </div>
+                    <div>
+                        <input type="submit" value="Add" class="button" style="width:350px;">
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+        <div class="col-md-8">
+            <div class="row">
+                {% for food_in_diet in food_in_diets: %}
+                {% set food_timing = get_food_timings_by_food_timing_id(food_in_diet[7]) %}
+                <div class="col-md-4 mt-5">
+                    <div class="card2">
+                        <div class="p-2">
+                            <img src="../static/diet_files/{{food_in_diet[8]}}" style="height:210px; max-width:100%; border-radius:15px;">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div>
+                                    <div style="font-weight:bold;">Food in Diet Id:</div>
+                                    <div>{{food_in_diet[0]}}</div>
+                                </div>
+                                <div>
+                                    <div style="font-weight:bold;">Quantity:</div>
+                                    <div>{{food_in_diet[2]}} {{food_in_diet[3]}}</div>
+                                </div>
+                                <div>
+                                    <div style="font-weight:bold;">Calories:</div>
+                                    <div>{{food_in_diet[6]}} calories</div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div>
+                                    <div style="font-weight:bold;">Food Name:</div>
+                                    <div>{{food_in_diet[1]}}</div>
+                                </div>
+                                <div>
+                                    <div style="font-weight:bold;">Propagation Time:</div>
+                                    <div>{{food_in_diet[5]}} min</div>
+                                </div>
+                                <div>
+                                    <div style="font-weight:bold;">Food Timing:</div>
+                                    <div>{{food_timing[2]}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="">
+                            <div style="font-weight:bold;">Preparation Process:</div>
+                            <div>{{food_in_diet[4]}}</div>
+                        </div>
+                        {% if session['role'] == 'user' %}
+                        {% set food_timing = get_food_timings_by_food_timing_id(food_in_diet[7]) %}
+                        <form action="update_user_food">
+                            <input type="hidden" name="food_in_diet_id" value="{{food_in_diet[0]}}">
+                            <input type="hidden" name="calories" value="{{food_in_diet[6]}}">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div>
+                                        <input type="text" name="quantity" placeholder="Enter Quantity" class="form-control">
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                        <input type="date" name="date" class="form-control"  required>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mt-3 width:150px;">
+                                        <input type="submit" value="Update" class="btn btn-dark">
+<!--                                        <a href="/update_food_diet?food_in_diet_id={{food_in_diet[0]}}" style="text-decoration:none; border-radius:10px; padding: 7px 50px; background-color:black; color: white;">Update</a>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+                        {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .card2 {
+    border:1px solid lightgray;
+    padding:20px;
+    display: flex;
+    flex-wrap: wrap;
+    margin:10px;
+    border-radius:10px;
+    background-color: lightgray;
+}
+    #food_name{
+      padding: 5px 80px;
+      margin: 5px 15px;
+      border-radius: 10px;
+      border-color: 1px light-black;
+    }
+    #quantity{
+      padding: 5px 80px;
+      margin: 5px 15px;
+      border-radius: 10px;
+      border-color: 1px light-black;
+    }
+    #units{
+      padding: 5px 80px;
+      margin: 5px 15px;
+      border-radius: 10px;
+      border-color: 1px light-black;
+    }
+    #preparation_process{
+      padding: 5px 90px;
+      margin: 5px 15px;
+      border-radius: 10px;
+      border-color: 1px light-black;
+    }
+    #propagation_time{
+      padding: 5px 80px;
+      margin: 5px 15px;
+      border-radius: 10px;
+      border-color: 1px light-black;
+    }
+    #calories{
+      padding: 5px 80px;
+      margin: 5px 15px;
+      border-radius: 10px;
+      border-color: 1px light-black;
+    }
+    #food_timing_id{
+      padding: 5px 88px;
+      margin: 5px 15px;
+      border-radius: 10px;
+      border-color: 1px light-black;
+    }
+    #image{
+      padding: 5px 25px;
+      margin: 5px 15px;
+      border-radius: 10px;
+      background-color: white;
+      border-color: 1px light-black;
+    }
+    .button{
+      margin-top: 7px;
+      margin-left:10px;
+      border: 1px solid black;
+      padding: 7px 80px;
+      background-color: black;
+      color: white;
+      font-size: 20px;
+      border-radius: 15px;
+    }
+</style>

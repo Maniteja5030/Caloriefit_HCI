@@ -1,0 +1,41 @@
+{% include 'nutrition_head.html' %}
+
+
+<div style="margin-top:100px;">
+    <div class="row m-3">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="card2">
+                <form action="food_timings1" style="margin:30px; margin-left:55px;">
+                    <div style="font-size:25px;" class="mb-2">Add Food Timing</div>
+                    <input type="hidden" name="diet_id" value="{{diet_id}}">
+                    <div style="margin-top:15px;">
+                        <input type="text" name="food_title" placeholder="Enter Title" style="width:100%; padding: 7px 30px; border-radius: 10px;">
+                    </div>
+                    <div style="margin-top:15px;">
+                        <input type="time" name="food_timings" style="width:100% padding: 7px 30px; border-radius: 10px;">
+                    </div>
+                    <div style="margin-top:15px; margin-bottom:15px;">
+                        <input type="number" name="calories_should_take" placeholder="Calories Should Take" style="width:100%; padding: 7px 30px; border-radius: 10px;">
+                    </div>
+                    <div style="margin-top:15px;">
+                        <input type="submit" class="btn btn-dark" style="color:white; width:100%; padding: 7px 30px; border-radius: 10px;" value="Add">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card2 {
+    border:1px solid lightgray;
+    padding:40px;
+    display: flex;
+    flex-wrap: wrap;
+    margin:10px;
+    border-radius:10px;
+    background-color: lightgray;
+}
+</style>

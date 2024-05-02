@@ -1,0 +1,25 @@
+{% if session['role'] == 'nutrition' %}
+    {% include "nutrition_head.html" %}
+{% elif session['role'] == 'user' %}
+    {% include "user_head.html" %}
+{% endif %}
+<div class="container mt-5">
+    <table class="table table-bordered " style="margin-top:150px">
+
+       <tr>
+           <th>Rating</th>
+           <th>Review</th>
+           <th>Date</th>
+           <th>User</th>
+       </tr>
+         {% for review in reviews%}
+        {% set user = get_user_by_reviewId(review[4]) %}
+        <tr>
+            <td>{{review[2]}}</td>
+            <td>{{review[1]}}</td>
+            <td>{{review[3]}}</td>
+            <td>{{user[1]}}</td>
+        </tr>
+        {% endfor%}
+    </table>
+</div>
